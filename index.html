@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marblique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #020202;
+      --white: #fdfdfd;
+      --gray: #7e7e7e;
+      --border: #606266;
+      --light: #d9d9d9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 18px 20px;
+      position: relative;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+    }
+
+    .nav-brand img { width: 22px; height: 22px; }
+
+    .nav-links {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 44px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 16px;
+      font-weight: 300;
+      text-decoration: none;
+      color: var(--black);
+    }
+
+    .nav-links a.active { text-decoration: underline; }
+
+    .nav-signin {
+      margin-left: auto;
+      font-size: 16px;
+      font-weight: 300;
+      cursor: pointer;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 20px 20px;
+      gap: 40px;
+    }
+
+    .hero-headline {
+      font-size: 48px;
+      font-weight: 200;
+      line-height: 1.05;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .hero-sub {
+      font-size: 12px;
+      font-weight: 300;
+      white-space: nowrap;
+      color: var(--black);
+      flex-shrink: 0;
+    }
+
+    .btn-hero {
+      flex-shrink: 0;
+    }
+
+    .btn-outline-rect {
+      border: 1px solid var(--border);
+      padding: 10px 18px;
+      font-size: 16px;
+      font-weight: 300;
+      font-family: inherit;
+      background: transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      color: var(--black);
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      width: 100%;
+      height: 620px;
+      overflow: hidden;
+    }
+
+    .hero-image-wrap img.hero-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .hero-wordmark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 13.5vw;
+      font-weight: 400;
+      white-space: nowrap;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.75);
+      letter-spacing: -2px;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ─── ARRIVALS ─── */
+    .arrivals {
+      padding: 80px 20px 100px;
+    }
+
+    .arrivals-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .arrivals-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    .arrivals-label img { width: 22px; height: 22px; margin-top: 4px; }
+
+    .arrivals-tagline {
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    /* staggered product grid — fr units fill full width, vw margins scale with viewport */
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr 2.1fr 1fr 1fr 1.6fr;
+      column-gap: 1.4vw;
+      align-items: start;
+    }
+
+    .product-card { display: flex; flex-direction: column; }
+
+    .product-card img.pot {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--black);
+      margin-top: 10px;
+    }
+
+    .product-label img { width: 24px; height: 14px; flex-shrink: 0; }
+
+    /* margins and heights scale with vw so the stagger moves with the grid */
+    .card-emerald { margin-top: 10.4vw; }
+    .card-emerald img.pot { height: 14.1vw; }
+
+    .card-summer { margin-top: 18vw; }
+    .card-summer img.pot { height: 31.5vw; }
+
+    .card-brown { margin-top: 11.8vw; }
+    .card-brown img.pot { height: 14.1vw; }
+
+    .card-golden { margin-top: 32vw; }
+    .card-golden img.pot { height: 14.1vw; }
+
+    .card-dragon { margin-top: 4.2vw; }
+    .card-dragon img.pot { height: 23.6vw; }
+
+    /* ── tablet: 2 columns, no stagger ── */
+    @media (max-width: 900px) {
+      .products-grid {
+        grid-template-columns: 1fr 1fr;
+        column-gap: 16px;
+        row-gap: 32px;
+      }
+      .card-emerald,
+      .card-summer,
+      .card-brown,
+      .card-golden,
+      .card-dragon { margin-top: 0; }
+      .card-emerald img.pot,
+      .card-summer img.pot,
+      .card-brown img.pot,
+      .card-golden img.pot,
+      .card-dragon img.pot { height: 42vw; }
+      .arrivals-header { flex-wrap: wrap; gap: 16px; }
+      .arrivals-label { font-size: 24px; }
+      .arrivals-tagline { font-size: 24px; }
+    }
+
+    /* ── mobile: single column ── */
+    @media (max-width: 520px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+        row-gap: 24px;
+      }
+      .card-emerald img.pot,
+      .card-summer img.pot,
+      .card-brown img.pot,
+      .card-golden img.pot,
+      .card-dragon img.pot { height: 80vw; }
+    }
+
+    /* ─── FEATURES ─── */
+    .features {
+      padding: 100px 20px;
+    }
+
+    /* header uses same 6-col grid as cards so columns line up perfectly */
+    .features-intro-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      column-gap: 24px;
+      align-items: start;
+      margin-bottom: 160px;
+    }
+
+    /* title sits in cols 2–3 */
+    .features-intro-title {
+      grid-column: 2 / 4;
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.45;
+    }
+
+    /* quote sits in cols 4–6, same block height as the title */
+    .features-quote {
+      grid-column: 4 / 7;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.7;
+      max-width: 460px;
+    }
+
+    /* single-row 6-col grid — margin-top creates the zigzag stagger */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      column-gap: 24px;
+      align-items: start;
+    }
+
+    .feature-card { }
+
+    /* cards 1, 3, 6 sit at top — cards 2, 4, 5 drop down */
+    .fc1 { margin-top: 0; }
+    .fc2 { margin-top: 120px; }
+    .fc3 { margin-top: 0; }
+    .fc4 { margin-top: 120px; }
+    .fc5 { margin-top: 200px; }
+    .fc6 { margin-top: 0; }
+
+    .feature-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.3;
+    }
+
+    .arrow-circle {
+      flex-shrink: 0;
+      width: 48px;
+      height: 32px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .arrow-circle img { width: 14px; height: 14px; }
+
+    .feature-card p {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 40px;
+      }
+      .fc1, .fc2, .fc3, .fc4, .fc5, .fc6 { margin-top: 0; }
+      .features-intro-row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ─── MATERIALS ─── */
+    .materials {
+      padding: 100px 20px 0;
+    }
+
+    .materials-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: stretch;
+    }
+
+    .materials-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .materials-left h2 {
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.45;
+      max-width: 246px;
+      margin-bottom: 24px;
+    }
+
+    .materials-left .body-text {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1.5;
+      max-width: 453px;
+      margin-bottom: 28px;
+    }
+
+    .btn-wide-circle {
+      width: 100%;
+      max-width: 453px;
+      height: 32px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      cursor: pointer;
+      margin-bottom: 40px;
+    }
+
+    .btn-wide-circle img { width: 16px; height: 16px; }
+
+    .materials-left .texture-img {
+      width: 453px;
+      height: 453px;
+      object-fit: cover;
+      display: block;
+      margin-top: auto;
+    }
+
+    .materials-right img {
+      width: 100%;
+      height: 923px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .materials-bottom-text {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 32px 0 60px;
+    }
+
+    .materials-bottom-text p {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.6;
+      max-width: 473px;
+    }
+
+    .materials-bottom-text .right { text-align: right; max-width: 548px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--light);
+      padding: 48px 20px 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr 2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* brand + contact */
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .footer-brand img { width: 22px; height: 22px; }
+    .footer-brand span { font-size: 16px; font-weight: 300; }
+
+    .footer-contact p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 2;
+    }
+
+    .footer-contact p .lbl {
+      color: var(--black);
+      font-weight: 400;
+    }
+
+    /* site map & socials */
+    .footer-col h4 {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--black);
+      margin-bottom: 16px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray);
+      text-decoration: none;
+      line-height: 2.2;
+    }
+
+    /* subscribe */
+    .footer-subscribe {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-subscribe h4 {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      white-space: nowrap;
+    }
+
+    .footer-form {
+      display: flex;
+      gap: 0;
+    }
+
+    .footer-form input {
+      flex: 1;
+      border: 1px solid var(--light);
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 300;
+      font-family: inherit;
+      color: var(--gray);
+      background: var(--white);
+      outline: none;
+    }
+
+    .footer-form button {
+      background: var(--light);
+      border: none;
+      padding: 12px 28px;
+      font-size: 14px;
+      font-weight: 300;
+      font-family: inherit;
+      cursor: pointer;
+      color: var(--black);
+      white-space: nowrap;
+    }
+
+    .footer-copy {
+      text-align: right;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gray);
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">
+      <img src="https://www.figma.com/api/mcp/asset/7ae70740-1e93-4a65-bbb3-3e7c3a0f9a7d" alt="" />
+      <span>Marblique</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <span class="nav-signin">Sign In</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-top">
+      <h1 class="hero-headline">Marble masterpieces,<br>born from your imagination</h1>
+      <p class="hero-sub">We create the unique art, inspired by nature</p>
+      <button class="btn-outline-rect btn-hero">Buy masterpieces</button>
+    </div>
+    <div class="hero-image-wrap">
+      <img class="hero-bg" src="https://www.figma.com/api/mcp/asset/48ddd8e0-b6a8-4c59-b314-c32c3d59c415" alt="Dark marble texture" />
+      <span class="hero-wordmark">Marblique</span>
+    </div>
+  </section>
+
+  <!-- NEW ARRIVALS -->
+  <section class="arrivals">
+    <div class="arrivals-header">
+      <div class="arrivals-label">
+        <span>New arrivals</span>
+        <img src="https://www.figma.com/api/mcp/asset/7ae70740-1e93-4a65-bbb3-3e7c3a0f9a7d" alt="" />
+      </div>
+      <p class="arrivals-tagline">Custom marble pots —<br>as unique as your ideas.</p>
+      <button class="btn-outline-rect">All Products</button>
+    </div>
+
+    <div class="products-grid">
+
+      <div class="product-card card-emerald">
+        <img class="pot" src="https://www.figma.com/api/mcp/asset/16ac7b8d-45c0-43c4-bb17-7c135d8f265a" alt="Emerald Eye" />
+        <div class="product-label">
+          <span>Emerald Eye 235-77</span>
+          <img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" />
+        </div>
+      </div>
+
+      <div class="product-card card-summer">
+        <img class="pot" src="https://www.figma.com/api/mcp/asset/932bd7c9-913b-447e-8153-37e6f30a2623" alt="Summer Sand" />
+        <div class="product-label">
+          <span>Summer Sand 234-67</span>
+          <img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" />
+        </div>
+      </div>
+
+      <div class="product-card card-brown">
+        <img class="pot" src="https://www.figma.com/api/mcp/asset/74ba0669-32bf-4b3e-b828-14ed0f848a04" alt="Brown Eagle" />
+        <div class="product-label">
+          <span>Brown Eagle 943-83</span>
+          <img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" />
+        </div>
+      </div>
+
+      <div class="product-card card-golden">
+        <img class="pot" src="https://www.figma.com/api/mcp/asset/fcd9fba6-f95f-4c44-a0d3-9d0e01f3bccd" alt="Golden Hour" />
+        <div class="product-label">
+          <span>Golden Hour 345-78</span>
+          <img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" />
+        </div>
+      </div>
+
+      <div class="product-card card-dragon">
+        <img class="pot" src="https://www.figma.com/api/mcp/asset/6bbc61a2-e09d-400a-9357-88e7394eb8f4" alt="Dragon Heart" />
+        <div class="product-label">
+          <span>Dragon Heart 723-94</span>
+          <img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="features-intro-row">
+      <h2 class="features-intro-title">Custom marble pots —<br>as unique as your ideas.</h2>
+      <p class="features-quote">"Our custom marble pots are crafted to reflect the uniqueness of your personal style and vision. Each design is one of a kind, blending natural elegance with your creative input. Transform your space with a distinctive piece that speaks to your individuality."</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card fc1">
+        <div class="feature-card-header">
+          <h3>Premium Quality Marble</h3>
+          <div class="arrow-circle"><img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" /></div>
+        </div>
+        <p>Our products are made exclusively from 100% natural marble, ensuring unrivaled durability and timeless beauty for your space and convenience.</p>
+      </div>
+
+      <div class="feature-card fc2">
+        <div class="feature-card-header">
+          <h3>Custom Designs Tailored to You</h3>
+          <div class="arrow-circle"><img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" /></div>
+        </div>
+        <p>Each pot is individually designed to reflect your unique style and preferences, making every piece one of a kind.</p>
+      </div>
+
+      <div class="feature-card fc3">
+        <div class="feature-card-header">
+          <h3>Sustainable Craftsmanship</h3>
+          <div class="arrow-circle"><img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" /></div>
+        </div>
+        <p>We source our marble ethically and minimize waste in production, combining luxury with environmental responsibility.</p>
+      </div>
+
+      <div class="feature-card fc4">
+        <div class="feature-card-header">
+          <h3>Expert Craftsmanship</h3>
+          <div class="arrow-circle"><img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" /></div>
+        </div>
+        <p>Our artisans are masters in their craft, carefully shaping each piece to achieve a flawless and refined finish.</p>
+      </div>
+
+      <div class="feature-card fc5">
+        <div class="feature-card-header">
+          <h3>Timeless Elegance</h3>
+          <div class="arrow-circle"><img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" /></div>
+        </div>
+        <p>Marble has been a symbol of luxury and elegance for centuries. Our designs bring this classic beauty to modern homes.</p>
+      </div>
+
+      <div class="feature-card fc6">
+        <div class="feature-card-header">
+          <h3>Exclusive Client Experience</h3>
+          <div class="arrow-circle"><img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" /></div>
+        </div>
+        <p>From design consultation to delivery, we provide personalized service to ensure your vision comes to life exactly as you imagined.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MATERIALS -->
+  <section class="materials">
+    <div class="materials-main">
+      <div class="materials-left">
+        <h2>Our materials —<br>our pride</h2>
+        <p class="body-text">Our commitment to quality begins with the materials we choose. We work exclusively with premium, natural marble, ensuring that each piece reflects the beauty and durability of this timeless stone. Every vein and pattern tells a unique story, making our products not just items, but works of art. "Our materials - our pride" is more than a slogan, it's the foundation of everything we create.</p>
+        <button class="btn-wide-circle">
+          <img src="https://www.figma.com/api/mcp/asset/1e253833-ff68-48b8-ba23-dbbd2329415d" alt="→" />
+        </button>
+        <img class="texture-img" src="https://www.figma.com/api/mcp/asset/ab7e3cc4-f2ed-412c-968f-b47c73375a1b" alt="Green marble texture" />
+      </div>
+      <div class="materials-right">
+        <img src="https://www.figma.com/api/mcp/asset/2d33163e-4682-469b-b60a-a9e53691c890" alt="Man holding marble vase" />
+      </div>
+    </div>
+    <div class="materials-bottom-text">
+      <p>Green-and-black marble is a striking natural stone, combining rich dark green tones with bold black veining. Its dramatic contrast creates a luxurious, sophisticated look, perfect for statement pieces in any interior. Known for its durability and unique patterns, this marble adds depth and exclusivity to spaces, making it a timeless choice for upscale designs.</p>
+      <p class="right">Elegance in every detail. Our handcrafted marble vases blend timeless beauty with modern design, making each piece a unique work of art. Precision-made from the finest natural marble, they embody both strength and sophistication. Perfect for those who appreciate true craftsmanship.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+
+      <div class="footer-contact">
+        <div class="footer-brand">
+          <img src="https://www.figma.com/api/mcp/asset/7ae70740-1e93-4a65-bbb3-3e7c3a0f9a7d" alt="" />
+          <span>Marblique</span>
+        </div>
+        <p><span class="lbl">Mail:</span> Marblique.customs@gmail.com</p>
+        <p><span class="lbl">Phone:</span> +1 111 222 3333</p>
+        <p><span class="lbl">Address:</span> 444 8th Ave, New York, 10019, USA</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Site Map</h4>
+        <a href="#">Collections</a>
+        <a href="#">Sales</a>
+        <a href="#">About</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Socials</h4>
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="#">AppStore</a>
+      </div>
+
+      <div class="footer-subscribe">
+        <h4>Feel free to ask any questions, we will contact you shortly.</h4>
+        <div class="footer-form">
+          <input type="email" placeholder="Enter your E-Mail" />
+          <button>Submit</button>
+        </div>
+      </div>
+
+    </div>
+    <p class="footer-copy">Marblique.customs @ all rights reserved 2024</p>
+  </footer>
+
+</body>
+</html>

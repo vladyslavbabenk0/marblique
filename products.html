@@ -107,22 +107,23 @@
     }
 
     .product-row {
-      display: flex;
-      flex-direction: column;
-      border-top: 1px solid var(--light);
-      padding: 32px 0;
-      gap: 0;
-    }
-
-    .product-row-header .product-title-row {
-      margin-bottom: 12px;
-    }
-
-    .product-row-body {
       display: grid;
       grid-template-columns: 2.1fr 1fr 3.2fr;
-      gap: 20px;
-      align-items: start;
+      column-gap: 20px;
+      border-top: 1px solid var(--light);
+      padding: 32px 0;
+      align-items: end;
+    }
+
+    /* Right column wrapper — header + info stacked */
+    .product-right-col {
+      display: flex;
+      flex-direction: column;
+      align-self: stretch;
+    }
+
+    .product-header {
+      /* sits at top of right col */
     }
 
     /* Large main image */
@@ -149,10 +150,11 @@
       display: block;
     }
 
-    /* Info column — full right section */
+    /* Info column */
     .product-info {
       display: flex;
       flex-direction: column;
+      flex: 1;
     }
 
     .product-title-row {
@@ -182,7 +184,7 @@
     }
 
     .product-description {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 300;
       color: var(--gray);
       line-height: 1.7;
@@ -397,13 +399,42 @@
     /* ─── TABLET ─── */
     @media (max-width: 900px) {
       .product-row {
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        column-gap: 0;
       }
-      .product-main-img { grid-column: 1; grid-row: 1; }
-      .product-thumbs   { grid-column: 2; grid-row: 1; }
-      .product-info     { grid-column: 1 / -1; grid-row: 2; }
 
-      .product-buy { aspect-ratio: unset; padding: 24px; }
+      /* Unwrap the right col so header and info become flex siblings */
+      .product-right-col {
+        display: contents;
+      }
+
+      .product-header {
+        order: -1;
+        width: 100%;
+        margin-bottom: 0;
+      }
+
+      .product-main-img {
+        width: 60%;
+        order: 0;
+      }
+
+      .product-thumbs {
+        width: 40%;
+        padding-left: 16px;
+        order: 0;
+        align-self: flex-end;
+      }
+
+      .product-info {
+        order: 1;
+        width: 100%;
+        margin-top: 24px;
+      }
+
+      .product-buy { aspect-ratio: unset; padding: 24px; width: auto; }
 
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
       .footer-subscribe { grid-column: 1 / -1; }
@@ -420,10 +451,8 @@
 
       .page-header { padding: 24px 20px 32px; }
 
-      .product-row { grid-template-columns: 1fr; }
-      .product-main-img { grid-column: 1; }
-      .product-thumbs   { grid-column: 1; flex-direction: row; }
-      .product-info     { grid-column: 1; }
+      .product-main-img { width: 100%; }
+      .product-thumbs { width: 100%; flex-direction: row; padding-left: 0; }
 
       .product-lower { grid-template-columns: 1fr; }
       .product-buy { aspect-ratio: unset; padding: 20px; }
@@ -468,14 +497,6 @@
 
     <!-- Product 1: Earth -->
     <div class="product-row">
-      <div class="product-row-header">
-        <div class="product-title-row">
-          <span class="product-name">Earth — 034</span>
-          <span class="product-price">Price: 899.00 $</span>
-        </div>
-        <hr class="product-divider" />
-      </div>
-      <div class="product-row-body">
       <img class="product-main-img" src="https://www.figma.com/api/mcp/asset/7ed4edbb-ef36-4353-9e76-8547ab81ee0f" alt="Earth marble vase" />
 
       <div class="product-thumbs">
@@ -483,35 +504,35 @@
         <img src="https://www.figma.com/api/mcp/asset/fc2e9383-4b70-423d-a1e7-5f9596074c63" alt="Earth vase detail" />
       </div>
 
-      <div class="product-info">
-        <p class="product-description">This stunning marble vase features a sophisticated blend of warm brown and crisp white tones, creating a natural, elegant contrast that draws the eye. The clean lines and minimalist design make it a versatile piece, seamlessly fitting into both modern and classic interiors. Its unique veining patterns, formed naturally over time, add an organic touch to the contemporary shape, making each vase one-of-a-kind. The smooth, polished surface enhances the rich marble texture, offering a timeless aesthetic that elevates any room, whether used as a standalone art piece or filled with delicate florals. Perfect for those who appreciate understated luxury, this vase embodies the fusion of modern chic and the raw beauty of natural stone.</p>
-        <p class="product-specs-label">Description</p>
-        <hr class="product-specs-divider" />
-        <div class="product-lower">
-          <div class="product-specs">
-            <p><span class="label">Material: </span><span class="val">100% Natural Marble</span></p>
-            <p><span class="label">Size: </span><span class="val">30 cm height, 15 cm diameter</span></p>
-            <p><span class="label">Finish: </span><span class="val">Polished for a sleek, glossy appearance</span></p>
-            <p><span class="label">Weight: </span><span class="val">3.5 kg</span></p>
-            <p><span class="label">Color: </span><span class="val">White with subtle brown veining</span></p>
-            <p><span class="label">Ideal For: </span><span class="val">Classic interiors, floral arrangements</span></p>
+      <div class="product-right-col">
+        <div class="product-header">
+          <div class="product-title-row">
+            <span class="product-name">Earth — 034</span>
+            <span class="product-price">Price: 899.00 $</span>
           </div>
-          <button class="product-buy">Buy Now</button>
+          <hr class="product-divider" />
         </div>
-      </div>
+        <div class="product-info">
+          <p class="product-description">This stunning marble vase features a sophisticated blend of warm brown and crisp white tones, creating a natural, elegant contrast that draws the eye. The clean lines and minimalist design make it a versatile piece, seamlessly fitting into both modern and classic interiors. Its unique veining patterns, formed naturally over time, add an organic touch to the contemporary shape, making each vase one-of-a-kind. The smooth, polished surface enhances the rich marble texture, offering a timeless aesthetic that elevates any room, whether used as a standalone art piece or filled with delicate florals. Perfect for those who appreciate understated luxury, this vase embodies the fusion of modern chic and the raw beauty of natural stone.</p>
+          <p class="product-specs-label">Description</p>
+          <hr class="product-specs-divider" />
+          <div class="product-lower">
+            <div class="product-specs">
+              <p><span class="label">Material: </span><span class="val">100% Natural Marble</span></p>
+              <p><span class="label">Size: </span><span class="val">30 cm height, 15 cm diameter</span></p>
+              <p><span class="label">Finish: </span><span class="val">Polished for a sleek, glossy appearance</span></p>
+              <p><span class="label">Weight: </span><span class="val">3.5 kg</span></p>
+              <p><span class="label">Color: </span><span class="val">White with subtle brown veining</span></p>
+              <p><span class="label">Ideal For: </span><span class="val">Classic interiors, floral arrangements</span></p>
+            </div>
+            <button class="product-buy">Buy Now</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Product 2: Emerald -->
     <div class="product-row">
-      <div class="product-row-header">
-        <div class="product-title-row">
-          <span class="product-name">Emerald — 068</span>
-          <span class="product-price">Price: 899.00 $</span>
-        </div>
-        <hr class="product-divider" />
-      </div>
-      <div class="product-row-body">
       <img class="product-main-img" src="https://www.figma.com/api/mcp/asset/bb2b727a-5a21-420a-bfc9-f38f1924d55c" alt="Emerald marble vase" />
 
       <div class="product-thumbs">
@@ -519,20 +540,29 @@
         <img src="https://www.figma.com/api/mcp/asset/5ae3f436-1982-4aa3-a570-20abb1efade5" alt="Emerald vase detail" />
       </div>
 
-      <div class="product-info">
-        <p class="product-description">This exquisite marble vase, in a deep emerald hue, radiates a sense of opulence and sophistication. The rich green tones, interwoven with delicate white veining, create a striking contrast that elevates any interior space. Its sleek, minimalist form allows the natural beauty of the stone to shine, making it a perfect addition to both modern and traditional decor. Each vase is a unique masterpiece, with organic patterns that add a touch of nature's artistry to the contemporary design. Polished to perfection, the smooth surface accentuates the depth of the emerald color, transforming this piece into a luxurious focal point. Ideal for statement floral arrangements or as a standalone piece, it brings a refined elegance to any room.</p>
-        <p class="product-specs-label">Description</p>
-        <hr class="product-specs-divider" />
-        <div class="product-lower">
-          <div class="product-specs">
-            <p><span class="label">Material: </span><span class="val">100% Natural Marble</span></p>
-            <p><span class="label">Size: </span><span class="val">35 cm height, 18 cm diameter</span></p>
-            <p><span class="label">Finish: </span><span class="val">Polished for a sleek, glossy appearance</span></p>
-            <p><span class="label">Weight: </span><span class="val">3.8 kg</span></p>
-            <p><span class="label">Color: </span><span class="val">White with subtle green veining</span></p>
-            <p><span class="label">Ideal For: </span><span class="val">Classic interiors, centerpiece displays</span></p>
+      <div class="product-right-col">
+        <div class="product-header">
+          <div class="product-title-row">
+            <span class="product-name">Emerald — 068</span>
+            <span class="product-price">Price: 899.00 $</span>
           </div>
-          <button class="product-buy">Buy Now</button>
+          <hr class="product-divider" />
+        </div>
+        <div class="product-info">
+          <p class="product-description">This exquisite marble vase, in a deep emerald hue, radiates a sense of opulence and sophistication. The rich green tones, interwoven with delicate white veining, create a striking contrast that elevates any interior space. Its sleek, minimalist form allows the natural beauty of the stone to shine, making it a perfect addition to both modern and traditional decor. Each vase is a unique masterpiece, with organic patterns that add a touch of nature's artistry to the contemporary design. Polished to perfection, the smooth surface accentuates the depth of the emerald color, transforming this piece into a luxurious focal point. Ideal for statement floral arrangements or as a standalone piece, it brings a refined elegance to any room.</p>
+          <p class="product-specs-label">Description</p>
+          <hr class="product-specs-divider" />
+          <div class="product-lower">
+            <div class="product-specs">
+              <p><span class="label">Material: </span><span class="val">100% Natural Marble</span></p>
+              <p><span class="label">Size: </span><span class="val">35 cm height, 18 cm diameter</span></p>
+              <p><span class="label">Finish: </span><span class="val">Polished for a sleek, glossy appearance</span></p>
+              <p><span class="label">Weight: </span><span class="val">3.8 kg</span></p>
+              <p><span class="label">Color: </span><span class="val">White with subtle green veining</span></p>
+              <p><span class="label">Ideal For: </span><span class="val">Classic interiors, centerpiece displays</span></p>
+            </div>
+            <button class="product-buy">Buy Now</button>
+          </div>
         </div>
       </div>
       </div>

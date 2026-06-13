@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "marblique",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "3000"],
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "C:\\Users\\thevl\\OneDrive\\Desktop\\clode\\server.ps1"],
       "port": 3000
     }
   ]

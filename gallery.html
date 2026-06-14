@@ -25,6 +25,7 @@
       font-weight: 300;
     }
 
+    /* ─── NAV ─── */
     nav {
       display: flex;
       align-items: center;
@@ -86,10 +87,190 @@
       background: var(--black);
     }
 
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      padding: 32px 20px 40px;
+      border-bottom: 1px solid var(--light);
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 300;
+      letter-spacing: -0.5px;
+    }
+
+    /* ─── GALLERY GRID ─── */
+    .gallery {
+      padding: 40px 20px 80px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px 24px;
+    }
+
+    .gallery-item {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .gallery-item-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+
+    .gallery-item:hover .gallery-item-img {
+      opacity: 0.85;
+    }
+
+    .gallery-item-info {
+      padding: 14px 0 0;
+    }
+
+    .gallery-item-name {
+      font-size: 13px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+
+    .gallery-item-category {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── TABLET ─── */
+    @media (max-width: 900px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px 16px;
+      }
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--light);
+      padding: 48px 20px 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr 2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .footer-brand img { width: 22px; height: 22px; }
+    .footer-brand span { font-size: 16px; font-weight: 300; }
+
+    .footer-contact p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 2;
+    }
+
+    .footer-contact p .lbl {
+      color: var(--black);
+      font-weight: 400;
+    }
+
+    .footer-col h4 {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--black);
+      margin-bottom: 16px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray);
+      text-decoration: none;
+      line-height: 2.2;
+    }
+
+    .footer-subscribe { display: flex; flex-direction: column; }
+
+    .footer-subscribe h4 {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      white-space: nowrap;
+    }
+
+    .footer-form { display: flex; }
+
+    .footer-form input {
+      flex: 1;
+      border: 1px solid var(--light);
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 300;
+      font-family: inherit;
+      color: var(--gray);
+      background: var(--white);
+      outline: none;
+    }
+
+    .footer-form button {
+      background: var(--light);
+      border: none;
+      padding: 12px 28px;
+      font-size: 14px;
+      font-weight: 300;
+      font-family: inherit;
+      cursor: pointer;
+      color: var(--black);
+      white-space: nowrap;
+    }
+
+    .footer-copy {
+      text-align: right;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gray);
+      margin-top: 24px;
+    }
+
+    /* ─── MOBILE ─── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .nav-signin { display: none; }
       .nav-hamburger { display: flex; }
+
+      .page-header { padding: 24px 20px 32px; }
+      .page-header h1 { font-size: 28px; }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px 12px;
+        padding: 24px 20px 60px;
+      }
+
+      footer { padding: 40px 20px 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
+      .footer-contact { grid-column: 1 / -1; }
+      .footer-subscribe { grid-column: 1 / -1; }
+      .footer-subscribe h4 { white-space: normal; }
+      .footer-copy { text-align: left; margin-top: 32px; }
     }
   </style>
 </head>
@@ -111,6 +292,101 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
+
+  <div class="page-header">
+    <h1>All Products</h1>
+  </div>
+
+  <div class="gallery">
+
+    <div class="gallery-item">
+      <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/7ed4edbb-ef36-4353-9e76-8547ab81ee0f" alt="Earth 034" />
+      <div class="gallery-item-info">
+        <p class="gallery-item-name">Earth — 034</p>
+        <p class="gallery-item-category">Marble Vase</p>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/a1f16faf-5533-4f43-a6b1-4fab7bbaed23" alt="Earth 034 detail" />
+      <div class="gallery-item-info">
+        <p class="gallery-item-name">Earth — 034</p>
+        <p class="gallery-item-category">Detail View</p>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/fc2e9383-4b70-423d-a1e7-5f9596074c63" alt="Earth 034 detail" />
+      <div class="gallery-item-info">
+        <p class="gallery-item-name">Earth — 034</p>
+        <p class="gallery-item-category">Detail View</p>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/bb2b727a-5a21-420a-bfc9-f38f1924d55c" alt="Emerald 068" />
+      <div class="gallery-item-info">
+        <p class="gallery-item-name">Emerald — 068</p>
+        <p class="gallery-item-category">Marble Vase</p>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/acd9b7db-9be3-4e04-980f-355af852ad5f" alt="Emerald 068 detail" />
+      <div class="gallery-item-info">
+        <p class="gallery-item-name">Emerald — 068</p>
+        <p class="gallery-item-category">Detail View</p>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/5ae3f436-1982-4aa3-a570-20abb1efade5" alt="Emerald 068 detail" />
+      <div class="gallery-item-info">
+        <p class="gallery-item-name">Emerald — 068</p>
+        <p class="gallery-item-category">Detail View</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+
+      <div class="footer-contact">
+        <div class="footer-brand">
+          <img src="https://www.figma.com/api/mcp/asset/7ae70740-1e93-4a65-bbb3-3e7c3a0f9a7d" alt="" />
+          <span>Marblique</span>
+        </div>
+        <p><span class="lbl">Mail:</span> Marblique.customs@gmail.com</p>
+        <p><span class="lbl">Phone:</span> +1 111 222 3333</p>
+        <p><span class="lbl">Address:</span> 444 8th Ave, New York, 10019, USA</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Site Map</h4>
+        <a href="#">Collections</a>
+        <a href="#">Sales</a>
+        <a href="#">About</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Socials</h4>
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="#">AppStore</a>
+      </div>
+
+      <div class="footer-subscribe">
+        <h4>Feel free to ask any questions, we will contact you shortly.</h4>
+        <div class="footer-form">
+          <input type="email" placeholder="Enter your E-Mail" />
+          <button>Submit</button>
+        </div>
+      </div>
+
+    </div>
+    <p class="footer-copy">Marblique.customs @ all rights reserved 2024</p>
+  </footer>
 
 </body>
 </html>

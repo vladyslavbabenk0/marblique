@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&display=swap" rel="stylesheet" />
+  <script>if(localStorage.getItem('marblique-theme')==='dark')document.documentElement.classList.add('dark');</script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -62,13 +63,6 @@
 
     .nav-links a.active { text-decoration: underline; }
 
-    .nav-signin {
-      margin-left: auto;
-      font-size: 16px;
-      font-weight: 300;
-      cursor: pointer;
-    }
-
     .nav-hamburger {
       display: none;
       flex-direction: column;
@@ -110,6 +104,7 @@
     .gallery-item {
       display: flex;
       flex-direction: column;
+      text-decoration: none;
       cursor: pointer;
     }
 
@@ -130,7 +125,7 @@
     }
 
     .gallery-item-name {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 400;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -139,7 +134,7 @@
     }
 
     .gallery-item-category {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 300;
       color: var(--gray);
       text-transform: uppercase;
@@ -198,7 +193,7 @@
 
     .footer-col a {
       display: block;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 300;
       color: var(--gray);
       text-decoration: none;
@@ -222,7 +217,7 @@
       flex: 1;
       border: 1px solid var(--light);
       padding: 12px 16px;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 300;
       font-family: inherit;
       color: var(--gray);
@@ -234,7 +229,7 @@
       background: var(--light);
       border: none;
       padding: 12px 28px;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 300;
       font-family: inherit;
       cursor: pointer;
@@ -244,7 +239,7 @@
 
     .footer-copy {
       text-align: right;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 300;
       color: var(--gray);
       margin-top: 24px;
@@ -253,8 +248,8 @@
     /* ─── MOBILE ─── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
-      .nav-signin { display: none; }
-      .nav-hamburger { display: flex; }
+      .nav-hamburger { display: flex; margin-left: 0; }
+      .nav-theme-toggle { margin-right: 8px; }
 
       .page-header { padding: 24px 20px 32px; }
       .page-header h1 { font-size: 28px; }
@@ -272,6 +267,38 @@
       .footer-subscribe h4 { white-space: normal; }
       .footer-copy { text-align: left; margin-top: 32px; }
     }
+
+    /* ─── DARK MODE ─── */
+    html.dark {
+      --black: #eae8e4;
+      --white: #131311;
+      --gray: #7a7875;
+      --border: #3a3835;
+      --light: #232220;
+    }
+
+    body { transition: background-color 0.25s ease, color 0.25s ease; }
+
+    .nav-theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--black);
+      margin-left: auto;
+      flex-shrink: 0;
+      padding: 0;
+    }
+
+    .nav-theme-toggle svg { display: block; }
+    .nav-theme-toggle .icon-sun { display: none; }
+    html.dark .nav-theme-toggle .icon-moon { display: none; }
+    html.dark .nav-theme-toggle .icon-sun { display: block; }
   </style>
 </head>
 <body>
@@ -287,7 +314,18 @@
       <li><a href="#">About</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
-    <span class="nav-signin">Sign In</span>
+    <button class="nav-theme-toggle" aria-label="Toggle dark mode">
+      <svg class="icon-moon" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z"/>
+      </svg>
+      <svg class="icon-sun" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="8" cy="8" r="2.5"/>
+        <line x1="8" y1="1" x2="8" y2="3"/><line x1="8" y1="13" x2="8" y2="15"/>
+        <line x1="1" y1="8" x2="3" y2="8"/><line x1="13" y1="8" x2="15" y2="8"/>
+        <line x1="3.22" y1="3.22" x2="4.64" y2="4.64"/><line x1="11.36" y1="11.36" x2="12.78" y2="12.78"/>
+        <line x1="12.78" y1="3.22" x2="11.36" y2="4.64"/><line x1="4.64" y1="11.36" x2="3.22" y2="12.78"/>
+      </svg>
+    </button>
     <button class="nav-hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -299,53 +337,21 @@
 
   <div class="gallery">
 
-    <div class="gallery-item">
+    <a class="gallery-item" href="product.html?id=earth-034">
       <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/7ed4edbb-ef36-4353-9e76-8547ab81ee0f" alt="Earth 034" />
       <div class="gallery-item-info">
         <p class="gallery-item-name">Earth — 034</p>
         <p class="gallery-item-category">Marble Vase</p>
       </div>
-    </div>
+    </a>
 
-    <div class="gallery-item">
-      <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/a1f16faf-5533-4f43-a6b1-4fab7bbaed23" alt="Earth 034 detail" />
-      <div class="gallery-item-info">
-        <p class="gallery-item-name">Earth — 034</p>
-        <p class="gallery-item-category">Detail View</p>
-      </div>
-    </div>
-
-    <div class="gallery-item">
-      <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/fc2e9383-4b70-423d-a1e7-5f9596074c63" alt="Earth 034 detail" />
-      <div class="gallery-item-info">
-        <p class="gallery-item-name">Earth — 034</p>
-        <p class="gallery-item-category">Detail View</p>
-      </div>
-    </div>
-
-    <div class="gallery-item">
+    <a class="gallery-item" href="product.html?id=emerald-068">
       <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/bb2b727a-5a21-420a-bfc9-f38f1924d55c" alt="Emerald 068" />
       <div class="gallery-item-info">
         <p class="gallery-item-name">Emerald — 068</p>
         <p class="gallery-item-category">Marble Vase</p>
       </div>
-    </div>
-
-    <div class="gallery-item">
-      <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/acd9b7db-9be3-4e04-980f-355af852ad5f" alt="Emerald 068 detail" />
-      <div class="gallery-item-info">
-        <p class="gallery-item-name">Emerald — 068</p>
-        <p class="gallery-item-category">Detail View</p>
-      </div>
-    </div>
-
-    <div class="gallery-item">
-      <img class="gallery-item-img" src="https://www.figma.com/api/mcp/asset/5ae3f436-1982-4aa3-a570-20abb1efade5" alt="Emerald 068 detail" />
-      <div class="gallery-item-info">
-        <p class="gallery-item-name">Emerald — 068</p>
-        <p class="gallery-item-category">Detail View</p>
-      </div>
-    </div>
+    </a>
 
   </div>
 
@@ -388,5 +394,11 @@
     <p class="footer-copy">Marblique.customs @ all rights reserved 2024</p>
   </footer>
 
+  <script>
+    document.querySelector('.nav-theme-toggle').addEventListener('click', function() {
+      var dark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('marblique-theme', dark ? 'dark' : 'light');
+    });
+  </script>
 </body>
 </html>
